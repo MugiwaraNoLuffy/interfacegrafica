@@ -1,3 +1,8 @@
+/*
+ * Guarda informacoes sobre os Equipamentos
+ *
+ */
+
 function Equipamento(){
 	var links = new Link();
 	var id;

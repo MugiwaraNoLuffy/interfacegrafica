@@ -1,6 +1,11 @@
+/*
+ * Classe guarda os links de um equipamento
+ *
+ */
+
 function Links(){
 	var links = new Array();
-	
+
 	this.getLinks = function ()
 	{
 		return links;
