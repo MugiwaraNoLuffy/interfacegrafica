@@ -1,12 +1,13 @@
 function TopoLogyScreen()
 { 
-	var canvas, ctx, $canvas, canvasOffset, offsetX, offsetY;//, image1, $house, $house2, bool;
-	var 
-	var equipamentos = new Array(); // add tipo
+	var canvas, ctx, $canvas;
+	var equipamentos; // add tipo
+	var images;
 	
 	this.init = function()
 	{
-		pcs = new Array();
+		equipamentos = new Array();
+		images = new Array();
 		canvas=document.getElementById("canvas");
 		ctx=canvas.getContext("2d");
 		$canvas=$("#canvas");
@@ -20,7 +21,8 @@ function TopoLogyScreen()
 	}
 	
 
-	/* Ler XML - carregar equipamentos e links
+	/* Parser XML - Carregar equipamentos e links
+	 * 		Carregar imagens
 	 * criar DIVS no html. Ex.: <div id="PC1"><img src=""></div>
 	 * Posicionar equipamentos e links. Using moveTo(x, y);
 	 * Verificar se ha novos equipamentos 
