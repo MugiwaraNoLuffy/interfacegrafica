@@ -25,4 +25,15 @@ function Equipamento(){
 	{
 		return id;
 	}
+	
+	this.setPosition = function (x, y)
+	{
+		posX = x;
+		posY = y;
+	}
+	
+	this.getPosition = function()
+	{
+		return [posX, posY];
+	}
 }
