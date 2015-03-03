@@ -1,0 +1,86 @@
+<html>
+<head>
+<!--script src="file://C:/Users/REDI/Documents/jquery-ui.js"></script>
+<script src="file://C:/Users/REDI/Documents/jquery.min.js"></script-->
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script>
+var canvas, ctx, $canvas, canvasOffset, offsetX, offsetY, image1, $house, $house2, bool;
+var pcs;
+var links;
+$(function(){
+//$("#message").html('testefdfd fsafadsfas');
+pcs = new Array();
+links = new Array();
+canvas=document.getElementById("canvas");
+ctx=canvas.getContext("2d");
+$canvas=$("#canvas");
+canvasOffset=$canvas.offset();
+offsetX=canvasOffset.left;
+offsetY=canvasOffset.top;
+
+image1=new Image();
+image1.src ="http://rack.2.mshcdn.com/media/ZgkyMDEyLzEyLzA0LzA1L0hQUENJbWFnZU1hLjVxMi5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/66a60e1e/3cc/HP-PC-Image-Mashable.jpg";
+
+pcs[pcs.length] = ["house", 0, 0];
+pcs[pcs.length] = ["house2", 0, 0];
+
+$house=$("#house");
+$house2=$("#house2");
+
+bool = false;
+$house.draggable({});
+$("#message").html('testefdfd fsafadsfas');
+$house2.draggable({});
+$("#message").html('');
+//---------------------------------------------------------
+
+// set the data payload
+$("#message").html('testefdfd fsafadsfas');
+$house.data("image",image1); // key-value pair
+$house2.data("image2",image1); // key-value pair
+
+
+$canvas.droppable({
+    drop:dragDrop,
+});
+
+});
+
+function dragDrop( e,ui ){
+    var element=ui.draggable;
+    var data=element.data("url");
+    var x=parseInt(ui.offset.left-offsetX);
+    var y=parseInt(ui.offset.top-offsetY);
+    $("#message").html('Coordenadas: '+'(' + ui.position.left + ', '+ui.position.top+')');
+    //ctx.drawImage(id,x-1,y);
+	alert($(event.target).attr("id"));
+	// busca id em pcs
+	// id = busca($(event.target).attr("id"));
+	id = 0;
+	pcs[id][1] = x;
+	pcs[id][2] = y;
+    //var canvas=document.getElementById("canvas");
+	alert('Coordenadas: '+'(' + pcs[0][1] + ', '+pcs[0][2]+')');
+}
+
+</script>
+TESTE
+</head>
+<body>
+<h4>Drag the house onto the canvas.
+    The house will be drawn on the canvas.</h4>
+	<br>
+<div id="message" style="background-color: ivory;">Teste</div>
+<div>
+<img id="house" width=32 height=32
+src="https://dl.dropboxusercontent.com/u/139992952/stackoverflow/house32x32transparent.png">
+<img id="house2" width=32 height=32
+src="https://dl.dropboxusercontent.com/u/139992952/stackoverflow/house32x32transparent.png">
+</br>
+<canvas id="canvas" width=600 height=600 style="border:1px solid red;"></canvas>
+</div>
+
+</body>
+</html>
