@@ -5,7 +5,8 @@
 
 function Links(){
 	var links;
-	
+	module.exports = Links;
+
 	this.init = function ()
 	{
 		this.links = new Array();
