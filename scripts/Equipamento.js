@@ -15,7 +15,7 @@ function Equipamento(){
 	
 	this.init = function (pid, descr, type, htmlID) 
 	{
-		//link = require('./Link');
+		//this.links = require('./Links'); //import
 		//this.links = new Links();
 		//this.links.init();
 		this.setDescr(descr);
