@@ -4,8 +4,13 @@
  */
 
 function Links(){
-	var links = new Array();
-
+	var links;
+	
+	this.init = function ()
+	{
+		this.links = new Array();
+	}
+	
 	this.getLinks = function ()
 	{
 		return links;
@@ -25,4 +30,5 @@ function Links(){
 	{
 		return links.indexOf(id);
 	}
+	
 }

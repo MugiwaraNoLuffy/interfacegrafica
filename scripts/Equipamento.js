@@ -4,7 +4,8 @@
  */
 
 function Equipamento(){
-	var links = new Link();
+	var link;
+	var links;
 	var id;
 	var descr;
 	var $id; 	// ponteiro para o objeto no html
@@ -14,10 +15,14 @@ function Equipamento(){
 	
 	this.init = function (pid, descr, type, htmlID) 
 	{
-		alert('testess');
-		setDescr(descr);
-		id = pid;
-		setType(type);
+		//link = require('./Link');
+		//this.links = new Links();
+		//this.links.init();
+		this.setDescr(descr);
+		alert(1);
+		this.id = pid;
+		alert(1);
+		this.setType(type);
 //		setDraggable(htmlID);
 	}
 
