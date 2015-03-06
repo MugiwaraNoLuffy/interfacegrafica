@@ -6,6 +6,7 @@
 function Links(){
 	var links;
 	
+	
 	this.init = function ()
 	{
 		this.links = new Array();
@@ -13,22 +14,23 @@ function Links(){
 	
 	this.getLinks = function ()
 	{
-		return links;
+		return this.links;
 	}
 	
 	this.addLink(dest)
 	{
-		links[links.length] = dest;
+		this.links[this.links.length] = dest;
 	}
 	
 	this.removeLink = function (id)
 	{
-		links.splice(searchLink(id), 1);
+		this.links.splice(searchLink(id), 1);
 	}
 	
 	this.searchLink = function (id)
 	{
-		return links.indexOf(id);
+		return this.links.indexOf(id);
 	}
-	
+	module.export = Links;
+	export.init = this.init;
 }

@@ -16,14 +16,12 @@ function Equipamento(){
 	this.init = function (pid, descr, type, htmlID) 
 	{
 		//link = require('./Link');
-		//this.links = new Links();
+		//this.links = require('./Links.js');
 		//this.links.init();
 		this.setDescr(descr);
-		alert(1);
-		this.id = pid;
-		alert(1);
+		id = pid;
 		this.setType(type);
-//		setDraggable(htmlID);
+		//this.setDraggable(htmlID);
 	}
 
 	this.setDraggable = function (htmlID)
