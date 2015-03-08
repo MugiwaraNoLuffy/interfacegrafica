@@ -3,33 +3,45 @@
  *
  */
 
+
 function Links(){
 	var links;
-	module.exports = Links;
 
 	this.init = function ()
 	{
 		this.links = new Array();
+		this.test();
 	}
 	
 	this.getLinks = function ()
 	{
-		return links;
+		return this.links;
 	}
 	
-	this.addLink(dest)
+	this.addLink = function(dest)
 	{
-		links[links.length] = dest;
+		this.links[this.links.length] = dest;
 	}
 	
-	this.removeLink = function (id)
+	this.removeLink = function (link)
 	{
-		links.splice(searchLink(id), 1);
+		var index = this.searchLink(link);
+		if( index != -1){
+			this.links.splice(index, 1);}
 	}
 	
 	this.searchLink = function (id)
 	{
-		return links.indexOf(id);
+		return this.links.indexOf(id);
 	}
-	
+
+	this.test = function()
+	{
+		
+		this.addLink(1);
+		this.addLink(5);
+		this.addLink(10);
+		this.removeLink(5);
+		$("#message").html(this.searchLink(10) );
+	}
 }

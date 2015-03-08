@@ -15,15 +15,12 @@ function Equipamento(){
 	
 	this.init = function (pid, descr, type, htmlID) 
 	{
-		//this.links = require('./Links'); //import
-		//this.links = new Links();
-		//this.links.init();
+		links = new Links();
+		links.init();
 		this.setDescr(descr);
-		alert(1);
-		this.id = pid;
-		alert(1);
+		id = pid;
 		this.setType(type);
-//		setDraggable(htmlID);
+		//this.setDraggable(htmlID);
 	}
 
 	this.setDraggable = function (htmlID)
@@ -36,7 +33,7 @@ function Equipamento(){
 	{
 		typeID = type;
 	}
-	
+
 	this.getType = function ()
 	{
 		return typeID;
@@ -46,7 +43,7 @@ function Equipamento(){
 	{
 		descr = param;
 	}
-	
+
 	this.getDescr = function ()
 	{
 		return descr;
@@ -62,9 +59,10 @@ function Equipamento(){
 		posX = x;
 		posY = y;
 	}
-	
+	/*
 	this.getPosition = function()
 	{
 		return [posX, posY];
-	}
+	}*/
 }
+
