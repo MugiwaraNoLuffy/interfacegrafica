@@ -1,0 +1,8 @@
+<PCS>
+	<PC Name="pc1">
+		<descr> Servidor HTTP </descr>
+	</PC>
+	<PC Name="pc2">
+		<descr> Servidor FTP </descr>
+	</PC>
+</PCS>
