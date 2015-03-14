@@ -1,9 +1,0 @@
-#cabecalho{ width:1800px;  height:60px; 	 border: 2px solid #aaaaaa; 
-	   background-color: #d0e4fe;}
-topology { width: 1392px; height: 550px; border: 2px solid #aaaaaa;}
-graphs   { width: 400px;  height:550px;  border: 2px solid #aaaaaa;}
-flows 	 { width: 400px;  height: 180px; border: 2px solid #aaaaaa;}
-trafego  { width: 400px;  height: 180px; border: 2px solid #aaaaaa;}
-pizza 	 { width: 400px;  height: 180px; border: 2px solid #aaaaaa;}
-editTopo { width: 50px;   height: 50px;	 border: 2px solid #ab2311;
-	   top: 13%; 	  left: 68%; 	 position: absolute; }
