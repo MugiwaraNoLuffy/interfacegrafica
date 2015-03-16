@@ -1,4 +1,4 @@
-function Alertas()
+function BarraAlertas()
 {
 	var barraId = "#cabecalho";
 	const VERDE = 1;
@@ -6,6 +6,7 @@ function Alertas()
 	const LARANJA = 3;
 	const VERMELHO = 4;
 	const VERMELHOESC = 5;
+
 	
 	this.alerta = function (nivel)
 	{
