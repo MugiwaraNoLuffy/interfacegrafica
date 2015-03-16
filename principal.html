@@ -3,11 +3,11 @@
 <link rel="stylesheet" type="text/css" href="style/principal.css">
 <script src="scripts/jquery-ui.js"></script>
 <script src="scripts/jquery-ui.min.js"></script>
-<script src="scripts/Alertas.js"></script>
+<script src="scripts/BarraAlertas.js"></script>
 <script>
 $(function(){
-	var a = new Alertas();
-	a.alerta(3);
+	var a = new BarraAlertas();
+	a.alerta(a.VERMELHO);
 });
 </script>
 </head>
@@ -27,6 +27,7 @@ $(function(){
 </tr>
 </table>
 </div>
+<table id="barraAlertas" hidden></table>
 </body>
 
 </html>
