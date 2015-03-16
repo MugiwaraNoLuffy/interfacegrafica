@@ -7,7 +7,7 @@
 <script>
 $(function(){
 	var a = new BarraAlertas();
-	a.alerta(a.VERMELHO);
+	a.alerta(3);
 });
 </script>
 </head>
@@ -17,7 +17,10 @@ $(function(){
 <table><tr><td id="cabecalho">Barra alertas</td></tr></table>
 <table>
 <tr>
-<td id="topology">Topology</td>
+<td id="topology">Topology
+	<canvas id="topoField"></canvas>
+	<input id="editButton" type=image src="images/edit.png">
+</td>
 <td id="graphs">
 	<table>
 	<tr><td id="flows">Flows</td></tr>

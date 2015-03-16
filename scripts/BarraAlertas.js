@@ -8,6 +8,7 @@ function BarraAlertas()
 	const VERMELHOESC = 5;
 
 	
+	
 	this.alerta = function (nivel)
 	{
 		alert(nivel);
