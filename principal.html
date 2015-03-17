@@ -7,7 +7,7 @@
 <script>
 $(function(){
 	var a = new BarraAlertas();
-	a.alerta(3);
+//	a.alerta(3);
 });
 </script>
 </head>
@@ -23,7 +23,7 @@ $(function(){
 </td>
 <td id="graphs">
 	<table>
-	<tr><td id="flows">Flows</td></tr>
+	<tr><td id="flows">Flows<?php require 'scripts/Alertas.php'; ?></td></tr>
 	<tr><td id="trafego">Trafego</td></tr>
 	<tr><td id="pizza">Pizza</td></tr>
 </table></td>
