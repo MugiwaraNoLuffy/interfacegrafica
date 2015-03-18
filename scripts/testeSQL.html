@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<?php
+			$host="localhost";
+			$db = "Teste";
+			$user = "root";
+			$pass = "root";
+			
+			$con = nysql_pconnect($host, $user, $pass) or trigger_error(mysql_error),E_USER_ERROR);
+			
+
+echo mysql_query("SELECT * from Teste").nome;
+	
+		?>
+	</head>
+
+	<body>
+		<p id="message"></p>
+	</body>
+</html>

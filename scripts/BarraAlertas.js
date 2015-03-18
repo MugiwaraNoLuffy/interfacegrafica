@@ -5,9 +5,7 @@ function BarraAlertas()
 	const AMARELO = 2;
 	const LARANJA = 3;
 	const VERMELHO = 4;
-	const VERMELHOESC = 5;
-
-	
+	const VERMELHOESC = 5;	
 	
 	this.alerta = function (nivel)
 	{
