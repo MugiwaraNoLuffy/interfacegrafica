@@ -14,7 +14,7 @@ function BarraAlertas()
 		var temp = 1;
 
 		$.getJSON(url, function(data){
-			$.each(data.alerts, priorityfunction(i, alarme){
+			$.each(data.alerts, function(i, alarme){
 				temp = parseInt(alarme.priority);
 //				alert(priority);
 				if( temp > priority){ this.priority = temp;}
