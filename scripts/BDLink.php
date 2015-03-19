@@ -1,5 +1,4 @@
 <?php 
-$alertas = NULL;
 function startConnection(){
 	$server = "localhost";
 	$username = "root";
@@ -12,12 +11,11 @@ function startConnection(){
 	}
 	else{
 		echo "<b>Connection Ok!</b>";
-
 	}	
 	return selectAlertas($conn);
 }
 function selectAlertas($conn){
-	$sql = "SELECT * FROM triggers WHERE priority=5";
+	$sql = "SELECT * FROM triggers WHERE value=1";
 	$alertas = $conn->query($sql);
 	if(mysqli_num_rows($alertas) > 0)
 		return $alertas;
