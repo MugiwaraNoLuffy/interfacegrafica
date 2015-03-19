@@ -4,15 +4,13 @@
 <script src="scripts/jquery-ui.js"></script>
 <script src="scripts/jquery-ui.min.js"></script>
 <script src="scripts/BarraAlertas.js"></script>
-<?php require 'scripts/BDLink.php'; startConnection(); ?>
+<!--?php require 'scripts/BDLink.php'; startConnection(); ?-->
 <script>
 $(function(){
 	var a = new BarraAlertas();
-	var SQL = new Array();
-	SQL = <?php echo $alertas; ?>;
-//	alert(sql);
-	a.alerta(3);
+	a.getAlerta();
 });
+
 </script>
 </head>
 

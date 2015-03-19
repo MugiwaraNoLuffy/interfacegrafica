@@ -1,20 +1,20 @@
 <?php
 
-	$q=$_GET[""];
-
 	$host="localhost";
 	$username="root";
 	$password="root";
 	$dbName="zabbix";
 
-	$link = mysql_connect("$host", "$username", "$password", "$dbName");
+	$link = mysqli_connect($host, $username, $password, $dbName);
 	$sql = "SELECT * FROM triggers WHERE value=1";
 
-	$result = mysql_query($sql);
-
-	while( $row = mysql_fetch_array($result) )
+	$result = mysqli_query($link, $sql);
+	$alerts = array();
+	while( $row = mysqli_fetch_object($result) )
 	{
-		echo json_encode($row);
+		$alerts[] = $row;
 	}
-	mysql_close($link);
+
+	echo '{"alerts":'.json_encode($alerts).'}';
+	mysqli_close($link);
 ?>

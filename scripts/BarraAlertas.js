@@ -6,13 +6,30 @@ function BarraAlertas()
 	const LARANJA = 3;
 	const VERMELHO = 4;
 	const VERMELHOESC = 5;	
+	var priority = 2;
 	
+	this.getAlerta = function ()
+	{
+		var url ="scriptsDB/getAlert.php";
+		var temp = 1;
+
+		$.getJSON(url, function(data){
+			$.each(data.alerts, priorityfunction(i, alarme){
+				temp = parseInt(alarme.priority);
+//				alert(priority);
+				if( temp > priority){ this.priority = temp;}
+//				alert(priority);
+			});
+		});
+
+		this.alerta(this.priority);
+	}
+
 	this.alerta = function (nivel)
 	{
-		alert(nivel);
 		switch(nivel)
 		{
-			case VERDE: // no alert
+			case VERDE: 
 				$(barraId).css({"background-color": "#00FF00"});
 				break;
 			case AMARELO: 
@@ -28,6 +45,5 @@ function BarraAlertas()
 				$(barraId).css({"background-color": "#FF0033"});
 				break;
 		}
-		alert(2);
 	}
 }
