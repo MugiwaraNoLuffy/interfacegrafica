@@ -6,23 +6,45 @@ function BarraAlertas()
 	const LARANJA = 3;
 	const VERMELHO = 4;
 	const VERMELHOESC = 5;	
-	var priority = 2;
+	var priority = 0;
 	
 	this.getAlerta = function ()
 	{
 		var url ="scriptsDB/getAlert.php";
 		var temp = 1;
+		/*
+		$.ajax({
+			url: url,
+			cache: false,
+			dataType: "json",
+			success: 
+	
+		);
+		*/
 
 		$.getJSON(url, function(data){
-			$.each(data.alerts, function(i, alarme){
+			var priority = 0;
+			for(var i=0; i<data.alerts.length; i++)
+			{
+				var object = data.alerts[i];
+//				alert();
+				if( parseInt(object.priority) > priority )
+				{
+					priority = parseInt(object.priority);
+				}
+			} 
+			var a = new BarraAlertas(); a.alerta(priority);
+/*			$.each(data.alerts, function(i, alarme){
 				temp = parseInt(alarme.priority);
+				var priority = 0;
+
 //				alert(priority);
-				if( temp > priority){ this.priority = temp;}
+				if( temp > priority){ priority = temp; var a = new BarraAlertas(); a.alerta(temp);}
 //				alert(priority);
-			});
+			});*/
 		});
 
-		this.alerta(this.priority);
+	//	this.alerta(priority);
 	}
 
 	this.alerta = function (nivel)
