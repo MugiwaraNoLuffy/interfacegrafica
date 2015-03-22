@@ -1,16 +1,16 @@
 #cabecalho{ width:1400px;  height:60px; border: 2px solid #aaaaaa; 
-	    top: 1%; left: 1%; position: absolute;}
+	    top: 1%; left: 1%; position: absolute; border-radius: 10px;}
 #topology { width: 970px; height: 685px; border: 1px solid #aaaaaa;
-	    top:10%; left: 1%; position: absolute;}
+	    top:10%; left: 1%; position: absolute; border-radius: 10px;}
 #topoField{ width: 950px; height: 670px; border: 1px solid #aaaaaa;
-	    top: 1%; left: 1%; position: absolute;}
+	    top: 1%; left: 1%; position: absolute; border-radius: 10px;}
 #graphs   { width: 420px; height: 685px; border: 1px solid #aaaaaa;
-	    top:10%; left: 69%; position: absolute;}
+	    top:10%; left: 69%; position: absolute; border-radius: 10px;}
 #flows 	  { width: 406px; height: 210px; border: 1px solid #aaaaaa;
-	    top: 1%; left: 1%; position: absolute;}
+	    top: 1%; left: 1%; position: absolute; border-radius: 10px;}
 #trafego  { width: 406px; height: 210px; border: 1px solid #aaaaaa;
-	    top: 33%; left: 1%; position: absolute;}
+	    top: 33%; left: 1%; position: absolute; border-radius: 10px;}
 #pizza 	  { width: 406px; height: 210px; border: 1px solid #aaaaaa;
-	    top: 65%; left: 1%; position: absolute;}
+	    top: 65%; left: 1%; position: absolute; border-radius: 10px;}
 #editButton{width: 120px; height:  43px;
 	    top: 2%;  left: 85%; position: absolute;}
