@@ -1,10 +1,15 @@
+<!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type"
+content="text/html;charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="style/principal.css">
-<script src="scripts/jquery-ui.js"></script>
-<script src="scripts/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> 
+
 <script src="scripts/BarraAlertas.js"></script>
-<!--?php require 'scripts/BDLink.php'; startConnection(); ?-->
+
 <script>
 $(function(){
 	var a = new BarraAlertas();
@@ -16,18 +21,18 @@ $(function(){
 
 <body>
 <div>
-<table><tr><td id="cabecalho">Barra alertas</td></tr></table>
+<table><tr><td id="cabecalho"></td></tr></table>
 <table>
 <tr>
-<td id="topology">Topology
+<td id="topology">
 	<canvas id="topoField"></canvas>
-	<input id="editButton" type=image src="images/edit.png">
+	<input id="editButton" type=image >
 </td>
 <td id="graphs">
 	<table>
-	<tr><td id="flows">Flows<!--?php startConnection(); ?--></td></tr>
-	<tr><td id="trafego">Trafego</td></tr>
-	<tr><td id="pizza">Pizza</td></tr>
+	<tr><td id="flows"></td></tr>
+	<tr><td id="trafego"></td></tr>
+	<tr><td id="pizza"></td></tr>
 </table></td>
 </tr>
 </table>
