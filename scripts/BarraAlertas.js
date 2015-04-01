@@ -10,9 +10,9 @@ function BarraAlertas()
 	
 	this.getAlerta = function ()
 	{
-		var url ="scriptsDB/getAlert.php";
+		var url ="../scriptsDB/getAlert.php";
 		var temp = 1;
-
+		alert(1);
 		$.getJSON(url, function(data){
 			var priority = 0;
 			for(var i=0; i<data.alerts.length; i++)
