@@ -12,9 +12,9 @@ function BarraAlertas()
 	{
 		var url ="../scriptsDB/getAlert.php";
 		var temp = 1;
-		alert(1);
+
 		$.getJSON(url, function(data){
-			var priority = 0;
+			var priority = 1;
 			for(var i=0; i<data.alerts.length; i++)
 			{
 				var object = data.alerts[i];
@@ -41,7 +41,7 @@ function BarraAlertas()
 				$(barraId).css({"background-color": "#FF9900"});
 				break;
 			case VERMELHO:
-				$(barraId).css({"background-color": "#F43292"});
+				$(barraId).css({"background-color": "#FF8a62"});
 				break;
 			case VERMELHOESC:
 				$(barraId).css({"background-color": "#FF0033"});
