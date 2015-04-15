@@ -18,7 +18,7 @@
 	while( $row = mysqli_fetch_object($result) )
 	{
 
-		$row->description =  str_replace("{HOST.NAME}", $row->host, $row->description );
+		$row->description =  utf8_encode(str_replace("{HOST.NAME}", $row->host, $row->description ));
 		unset($row->host);
 		$alerts[] = $row;
 	}
@@ -34,14 +34,16 @@
 	
   	while( $row = mysqli_fetch_object($result) )
         {
+		$row->description = utf8_encode($row->description); 
                 $alerts[] = $row;
         }	
 	
 	/*
 	 * Json encode
-	 */
-	
+	 */	
+
 	$json1 = '{"alerts":'.json_encode($alerts).'}';
+
 	echo "$json1";
 
 	mysqli_close($link);
