@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type"
+content="text/html;charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="style/principal.css">
+<!-- Jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> 
+<!-- Minhas scripts -->
+<script src="scripts/BarraAlertas.js"></script>
+<script src="scripts/Alertas.js"></script>
+<!-- GoJS -->
+<script src="go-debug.js"></script>
+
+<script>
+var myDiagram;
+$(function(){
+var $ = go.GraphObject.make;
+myDiagram =
+  $(go.Diagram, "myDiagramDiv",
+    {
+      initialContentAlignment: go.Spot.Center, // Center Diagram contents
+      "undoManager.isEnabled": true // enable Ctrl-Z to undo and Ctrl-Y to redo
+    });
+
+myDiagram.nodeTemplate =
+  $(go.Node, "Vertical",
+//    new go.Binding("location", "loc", go.Point.parse),
+	{ //locationSpot: go.Spot.Center, locationObjectName: "SHAPE",
+      //  layerName: "Background",
+        mouseOver: function (e, obj) { showPoint(obj.part.location); } },
+      new go.Binding("location", "loc", go.Point.parse),
+	//$(go.Shape,
+//      $(go.Shape, "PlusLine",
+//        { name: "SHAPE", width: 8, height: 8 }),
+//      $(go.TextBlock,
+//        { position: new go.Point(6, 6), font: "8pt" }
+        //new go.Binding("text", "loc")
+//	),
+    // The entire node will have a light-blue background
+    { background: "#DAE4E4" },
+    $(go.Picture,
+      // Pictures should normally have an explicit width and height.
+      // This picture has a red background, only visible when there is no source set
+      // or when the image is partially transparent.
+      { margin: 10, width: 50, height: 50, background: "#DAE4E4" },
+      // Picture.source is data bound to the "source" attribute of the model data
+      new go.Binding("source")),
+    $(go.TextBlock,
+      "Default Text",  // the initial value for TextBlock.text
+      // Some room around the text, a larger font, and a white stroke:
+      { margin: 12, stroke: "black", font: "bold 16px sans-serif" },
+      // TextBlock.text is data bound to the "name" attribute of the model data
+      new go.Binding("text", "key"),
+      //new go.Binding("location", "loc"),
+      new go.Binding("text", "name")
+ 
+     )
+  );
+myDiagram.linkTemplate =
+  $(go.Link,
+    { routing: go.Link.Orthogonal, corner: 5 },
+    $(go.Shape, { strokeWidth: 3, stroke: "#555" })); // the link shape
+
+var model = $(go.Model);
+nodeDataArray =
+[ { key: "1", name: "PC", source: "../interfacegrafica/images/pc.png", loc: "-284 360"},
+  { key: "2", name: "Router", source: "../interfacegrafica/images/router.png", loc: "-285 6" },
+  { key: "3", name: "Servidor",  source: "../interfacegrafica/images/servidor.png", loc: "200 200"},
+];
+
+nodeDataArray.push({ key: "4", name: "Switch", source: "../interfacegrafica/images/switch.png", loc: "300 300" });
+
+
+var links = [{from: "1", to: "2" }, {from: "2", to: "3"}, {from: "2", to: "4"}];
+
+myDiagram.model = new go.GraphLinksModel(nodeDataArray, links);
+
+//alert( nodeDataArray[0]['']);
+addNode(nodeDataArray, "5", "HOST");
+//myDiagram.model.addLinkData({ from: "Router", to: "PC" });
+addLink(myDiagram, "1", "5");
+
+myDiagram.addDiagramListener("ObjectSingleClicked",
+      function(e) {
+        var part = e.subject.part;
+        if (!(part instanceof go.Link)) alert("Clicked on " + part.data.loc);
+      });
+
+});
+
+function addNode(arrayNode, key, name){
+	var insert = searchNode(arrayNode, key);
+	alert( name );
+	if( insert == true ){
+		alert(1);
+	}
+	arrayNode.push({key: key, name: name, source: "../interfacegrafica/images/switch.png", loc: "380 250"});
+}
+
+function addLink(diagram, hostA, hostB){
+	diagram.model.addLinkData({ from: hostA, to: hostB });
+}
+
+function searchNode(arrayNode, key)
+{
+	for(var i = 0; i < arrayNode.lenght; i++)
+	{
+		if(arrayNode[i]['key'] == key)
+			return true;
+	}
+	return false;
+}
+
+  function showPoint(loc) {
+    var docloc = myDiagram.transformDocToView(loc);
+	var elt = document.getElementById("Message1");
+    elt.textContent = "document: " + loc.x.toFixed(2) + " " + loc.y.toFixed(2) +
+                      "  view: " + docloc.x.toFixed(2) + " " + docloc.y.toFixed(2);
+  }
+
+</script>
+<body>
+<div id="myDiagramDiv"
+     style="width:800px; height:600px; background-color: #DAE4E4;"></div>
+<div id="Message1"></div>
+</body>  
+</head>
+
+
