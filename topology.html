@@ -12,77 +12,91 @@ content="text/html;charset=ISO-8859-1">
 <script src="scripts/BarraAlertas.js"></script>
 <script src="scripts/Alertas.js"></script>
 <!-- GoJS -->
-<script src="go-debug.js"></script>
+<script src="scripts/go-debug.js"></script>
 
 <script>
 var myDiagram;
 $(function(){
 var $ = go.GraphObject.make;
+//---------------- Diagram interation ------------
 myDiagram =
-  $(go.Diagram, "myDiagramDiv",
-    {
-      initialContentAlignment: go.Spot.Center, // Center Diagram contents
-      "undoManager.isEnabled": true // enable Ctrl-Z to undo and Ctrl-Y to redo
-    });
-
+	$(go.Diagram, "myDiagramDiv",
+	{
+	initialContentAlignment: go.Spot.Center, // Center Diagram contents
+	"undoManager.isEnabled": true // enable Ctrl-Z to undo and Ctrl-Y to redo
+	}
+	);
+//---------------- Nodes configuration ------------
 myDiagram.nodeTemplate =
-  $(go.Node, "Vertical",
-//    new go.Binding("location", "loc", go.Point.parse),
-	{ //locationSpot: go.Spot.Center, locationObjectName: "SHAPE",
-      //  layerName: "Background",
-        mouseOver: function (e, obj) { showPoint(obj.part.location); } },
-      new go.Binding("location", "loc", go.Point.parse),
-	//$(go.Shape,
-//      $(go.Shape, "PlusLine",
-//        { name: "SHAPE", width: 8, height: 8 }),
-//      $(go.TextBlock,
-//        { position: new go.Point(6, 6), font: "8pt" }
-        //new go.Binding("text", "loc")
-//	),
-    // The entire node will have a light-blue background
-    { background: "#DAE4E4" },
-    $(go.Picture,
-      // Pictures should normally have an explicit width and height.
-      // This picture has a red background, only visible when there is no source set
-      // or when the image is partially transparent.
-      { margin: 10, width: 50, height: 50, background: "#DAE4E4" },
-      // Picture.source is data bound to the "source" attribute of the model data
-      new go.Binding("source")),
-    $(go.TextBlock,
-      "Default Text",  // the initial value for TextBlock.text
-      // Some room around the text, a larger font, and a white stroke:
-      { margin: 12, stroke: "black", font: "bold 16px sans-serif" },
-      // TextBlock.text is data bound to the "name" attribute of the model data
-      new go.Binding("text", "key"),
-      //new go.Binding("location", "loc"),
-      new go.Binding("text", "name")
- 
-     )
-  );
+	$(go.Node, "Vertical",
+		{ 
+			locationSpot: go.Spot.Center, locationObjectName: "SHAPE",
+			layerName: "Background",
+			mouseOver: function (e, obj) { showPoint(obj.part.location); }
+		},
+		new go.Binding("location", "loc", go.Point.parse), 
+      		{
+        		selectionAdornmentTemplate: $(go.Adornment, "Auto",
+				$(go.Shape, "RoundedRectangle",
+            				{ fill: null, stroke: "red", strokeWidth: 2 },
+	    				new go.Binding("stroke", "color")
+				),
+            			$(go.Placeholder)
+          		)
+      		},
+	    	{ background: "#DAE4E4" },
+   		$(go.Panel, "Spot", 
+			$(go.Panel, "Auto", 
+				$(go.Picture,
+      					{ margin: 10, width: 50, height: 50, background: "#DAE4E4" },
+		      			new go.Binding("source")
+				)
+			)
+		),
+    		$(go.TextBlock, "Default Text", 
+      			{ margin: 5, stroke: "black", font: "bold 16px sans-serif" },
+      			new go.Binding("text", "key"),
+      			new go.Binding("text", "name")
+    		),  
+    		$(go.Panel, "Auto",
+      			$(go.Shape, {fill: null, stroke: null, strokeWidth: 2}, new go.Binding("background", "problem", nodeProblem)), // problem
+      			$(go.TextBlock, "Ok",
+				{ margin: 5, stroke: "green", font: "bold 16px sans-serif" },
+				new go.Binding("stroke", "color"),
+				new go.Binding("text", "status")
+    			)
+		)
+    
+  	);
+//---------------- Links configuration ------------
 myDiagram.linkTemplate =
-  $(go.Link,
-    { routing: go.Link.Orthogonal, corner: 5 },
-    $(go.Shape, { strokeWidth: 3, stroke: "#555" })); // the link shape
-
+	$(go.Link,
+		$(go.Shape, { strokeWidth: 3, stroke: "#555" },
+			new go.Binding("stroke", "problem", linkProblemConverter)
+		)
+	); // the link shape
+//-------------------------------------------------
 var model = $(go.Model);
 nodeDataArray =
-[ { key: "1", name: "PC", source: "../interfacegrafica/images/pc.png", loc: "-284 360"},
-  { key: "2", name: "Router", source: "../interfacegrafica/images/router.png", loc: "-285 6" },
-  { key: "3", name: "Servidor",  source: "../interfacegrafica/images/servidor.png", loc: "200 200"},
-];
+	[ { key: "1", name: "PC 1", source: "images/pc.png", loc: "114 495", color: "green"},
+	  { key: "2", name: "PC 2", source: "images/pc.png", loc: "363 517", color: "green"},
+	  { key: "3", name: "PC 3", source: "images/pc.png", loc: "622 469", color: "green"},
+	  { key: "4", name: "Router", source: "images/router.png", loc: "366 290", color: "green" },
+	  { key: "5", name: "Internet",  source: "images/cloud.jpg", loc: "373 63", color: "green"},
+	];
 
-nodeDataArray.push({ key: "4", name: "Switch", source: "../interfacegrafica/images/switch.png", loc: "300 300" });
+//nodeDataArray.push({ key: "4", name: "Switch", source: "images/switch.png", loc: "300 300", color: "yellow" });
 
 
-var links = [{from: "1", to: "2" }, {from: "2", to: "3"}, {from: "2", to: "4"}];
+var links = [{from: "1", to: "4" }, {from: "2", to: "4"}, {from: "3", to: "4"}, {from: "5", to: "4"}];
 
-myDiagram.model = new go.GraphLinksModel(nodeDataArray, links);
+
 
 //alert( nodeDataArray[0]['']);
-addNode(nodeDataArray, "5", "HOST");
+//addNode(nodeDataArray, "5", "HOST");
 //myDiagram.model.addLinkData({ from: "Router", to: "PC" });
 addLink(myDiagram, "1", "5");
-
+myDiagram.model = new go.GraphLinksModel(nodeDataArray, links);
 myDiagram.addDiagramListener("ObjectSingleClicked",
       function(e) {
         var part = e.subject.part;
@@ -91,13 +105,27 @@ myDiagram.addDiagramListener("ObjectSingleClicked",
 
 });
 
+function linkProblemConverter(msg) {
+	if (msg) return "red";
+	return "black";
+}
+
+function nodeProblemConverter(msg) {
+	if (msg) return "red";
+	return null;
+}
+
+function nodeProblem(color){
+	return color;
+}
+
 function addNode(arrayNode, key, name){
 	var insert = searchNode(arrayNode, key);
 	alert( name );
 	if( insert == true ){
 		alert(1);
 	}
-	arrayNode.push({key: key, name: name, source: "../interfacegrafica/images/switch.png", loc: "380 250"});
+	arrayNode.push({key: key, name: name, source: "images/switch.png", loc: "380 250", color: "pink"});
 }
 
 function addLink(diagram, hostA, hostB){
