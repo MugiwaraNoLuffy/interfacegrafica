@@ -8,23 +8,18 @@ function BarraAlertas()
 	const VERMELHOESC = 5;	
 	var priority = 0;
 	
-	this.getAlerta = function ()
+	this.setAlerta = function (alerts)
 	{
-		var url ="../scriptsDB/getAlert.php";
-		var temp = 1;
-
-		$.getJSON(url, function(data){
-			var priority = 1;
-			for(var i=0; i<data.alerts.length; i++)
+		var priority = 1;
+		for(var i=0; i<alerts.length; i++)
+		{
+			var object = alerts[i];
+			if( parseInt(object.priority) > priority )
 			{
-				var object = data.alerts[i];
-				if( parseInt(object.priority) > priority )
-				{
-					priority = parseInt(object.priority);
-				}
-			} 
-			var a = new BarraAlertas(); a.alerta(priority);
-		});
+				priority = parseInt(object.priority);
+			}
+		} 
+		this.alerta(priority);
 	}
 
 	this.alerta = function (nivel)
