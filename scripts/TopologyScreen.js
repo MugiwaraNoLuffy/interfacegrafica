@@ -1,77 +1,143 @@
-function TopoLogyScreen()
-{ 
-	var canvas, ctx, $canvas;
-	var equipamentos; // add tipo
-	var images;
-	
-	this.init = function()
+var myDiagram;
+$(function(){
+var $ = go.GraphObject.make;
+//---------------- Diagram interation ------------
+myDiagram =
+	$(go.Diagram, "topoField",
 	{
-		equipamentos = new Array();
-		images = new Array();
-		canvas=document.getElementById("canvas");
-		ctx=canvas.getContext("2d");
-		$canvas=$("#canvas");
-		canvasOffset=$canvas.offset();
-		offsetX=canvasOffset.left;
-		offsetY=canvasOffset.top;
-		configTopology();
-		$canvas.droppable({
-			drop: Drop,
-		});
+	initialContentAlignment: go.Spot.Center, // Center Diagram contents
+	"undoManager.isEnabled": true // enable Ctrl-Z to undo and Ctrl-Y to redo
 	}
-	
+	);
+//---------------- Nodes configuration ------------
+myDiagram.nodeTemplate =
+	$(go.Node, "Vertical",
+		{ 
+			locationSpot: go.Spot.Center, locationObjectName: "SHAPE",
+			layerName: "Background",
+			mouseOver: function (e, obj) { showPoint(obj.part.location); }
+		},
+		new go.Binding("location", "loc", go.Point.parse), 
+      		{
+        		selectionAdornmentTemplate: $(go.Adornment, "Auto",
+				$(go.Shape, "RoundedRectangle",
+            				{ fill: null, stroke: "red", strokeWidth: 2 },
+	    				new go.Binding("stroke", "color")
+				),
+            			$(go.Placeholder)
+          		)
+      		},
+	    	{ background: "#FFFFFF" },
+   		$(go.Panel, "Spot", 
+			$(go.Panel, "Auto", 
+				$(go.Picture,
+      					{ margin: 10, width: 70, height: 60, background: "#FFFFFF" },
+		      			new go.Binding("source")
+				)
+			)
+		),
+    		$(go.TextBlock, "Default Text", 
+      			{ margin: 5, stroke: "black", font: "bold 16px sans-serif" },
+      			new go.Binding("text", "key"),
+      			new go.Binding("text", "name")
+    		),  
+    		$(go.Panel, "Auto",
+      			$(go.Shape, {fill: null, stroke: null, strokeWidth: 2}, new go.Binding("background", "problem", nodeProblem)), // problem
+      			$(go.TextBlock, "Ok",
+				{ margin: 5, stroke: "green", font: "bold 16px sans-serif" },
+				new go.Binding("stroke", "color"),
+				new go.Binding("text", "status")
+    			)
+		)
+    
+  	);
+//---------------- Links configuration ------------
+myDiagram.linkTemplate =
+	$(go.Link,
+		$(go.Shape, { strokeWidth: 3, stroke: "#555" },
+			new go.Binding("stroke", "problem", linkProblemConverter)
+		)
+	); // the link shape
+//-------------------------------------------------
+var model = $(go.Model);
+nodeDataArray =
+	[ { key: "1", name: "PC 1", source: "images/pc.png", loc: "114 495", color: "green"},
+	  { key: "2", name: "PC 2", source: "images/pc.png", loc: "363 517", color: "green"},
+	  { key: "3", name: "PC 3", source: "images/pc.png", loc: "622 469", color: "green"},
+	  { key: "4", name: "Router", source: "images/router.png", loc: "366 290", color: "green" },
+	  { key: "5", name: "Internet",  source: "images/cloud.png", loc: "373 63", color: "green"},
+	];
 
-	/* Parser XML - Carregar equipamentos e links
-	 * 		Carregar imagens
-	 * criar DIVS no html. Ex.: <div id="PC1"><img src=""></div>
-	 * Posicionar equipamentos e links. Using moveTo(x, y);
-	 * Verificar se ha novos equipamentos 
-	 */
-	this.configTopology = function()
+//nodeDataArray.push({ key: "4", name: "Switch", source: "images/switch.png", loc: "300 300", color: "yellow" });
+
+
+var links = [{from: "1", to: "4" }, {from: "2", to: "4"}, {from: "3", to: "4"}, {from: "5", to: "4"}];
+
+
+
+//alert( nodeDataArray[0]['']);
+//addNode(nodeDataArray, "5", "HOST");
+//myDiagram.model.addLinkData({ from: "Router", to: "PC" });
+//addLink(myDiagram, "1", "5");
+myDiagram.model = new go.GraphLinksModel(nodeDataArray, links);
+nodeDataArray[0]['color'] = "red";
+//myDiagram.model = new go.GraphLinksModel(nodeDataArray, links);
+
+
+
+//model.nodeDataArray[1].problem = "red";
+//myDiagram.model = new go.GraphLinksModel(nodeDataArray, links);
+myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[0]);
+
+myDiagram.addDiagramListener("ObjectSingleClicked",
+      function(e) {
+        var part = e.subject.part;
+        if (!(part instanceof go.Link)) alert("Clicked on " + part.data.loc);
+      });
+
+});
+
+
+function linkProblemConverter(msg) {
+	if (msg) return "red";
+	return "black";
+}
+
+function nodeProblemConverter(msg) {
+	if (msg) return "red";
+	return null;
+}
+
+function nodeProblem(color){
+	return color;
+}
+
+function addNode(arrayNode, key, name){
+	var insert = searchNode(arrayNode, key);
+	alert( name );
+	if( insert == true ){
+		alert(1);
+	}
+	arrayNode.push({key: key, name: name, source: "images/switch.png", loc: "380 250", color: "pink"});
+}
+
+function addLink(diagram, hostA, hostB){
+	diagram.model.addLinkData({ from: hostA, to: hostB });
+}
+
+function searchNode(arrayNode, key)
+{
+	for(var i = 0; i < arrayNode.lenght; i++)
 	{
-		
+		if(arrayNode[i]['key'] == key)
+			return true;
 	}
-/*		image1=new Image();
-		image1.src ="http://rack.2.mshcdn.com/media/ZgkyMDEyLzEyLzA0LzA1L0hQUENJbWFnZU1hLjVxMi5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/66a60e1e/3cc/HP-PC-Image-Mashable.jpg";
-	
-		pcs[pcs.length] = ["house", 0, 0];
-		pcs[pcs.length] = ["house2", 0, 0];
-	
-		$house=$("#house");
-		$house2=$("#house2");
-	
-		bool = false;
-		$house.draggable({});
-		$("#message").html('testefdfd fsafadsfas');
-		$house2.draggable({});
-		$("#message").html('');
-		//---------------------------------------------------------
-		
-		// set the data payload
-		$("#message").html('testefdfd fsafadsfas');
-		$house.data("image",image1); // key-value pair
-		$house2.data("image2",image1); // key-value pair
+	return false;
+}
 
-	
-		$canvas.droppable({
-		    drop:dragDrop,
-		});
-*/	
-	this.Drop = function ( e,ui ){
-	    var element=ui.draggable;
-	    var data=element.data("url");
-	    var x=parseInt(ui.offset.left-offsetX);
-	    var y=parseInt(ui.offset.top-offsetY);
-	    $("#message").html('Coordenadas: '+'(' + ui.position.left + ', '+ui.position.top+')');
-	    //ctx.drawImage(id,x-1,y);
-		alert($(event.target).attr("id"));
-		// busca id em pcs
-		// id = busca($(event.target).attr("id"));
-		id = 0;
-		pcs[id][1] = x;
-		pcs[id][2] = y;
-	    //var canvas=document.getElementById("canvas");
-		alert('Coordenadas: '+'(' + pcs[0][1] + ', '+pcs[0][2]+')');
-	}	
-
-}	
+  function showPoint(loc) {
+    var docloc = myDiagram.transformDocToView(loc);
+	var elt = document.getElementById("Message1");
+    elt.textContent = "document: " + loc.x.toFixed(2) + " " + loc.y.toFixed(2) +
+                      "  view: " + docloc.x.toFixed(2) + " " + docloc.y.toFixed(2);
+  }
