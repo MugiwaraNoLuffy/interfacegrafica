@@ -1,4 +1,4 @@
-function BarraAlertas()
+function AlertsBar()
 {
 	var barraId = "#cabecalho";
 	const VERDE = 1;
@@ -8,7 +8,7 @@ function BarraAlertas()
 	const VERMELHOESC = 5;	
 	var priority = 0;
 	
-	this.setAlerta = function (alerts)
+	this.setAlerts = function (alerts)
 	{
 		var priority = 1;
 		for(var i=0; i<alerts.length; i++)
@@ -20,6 +20,7 @@ function BarraAlertas()
 			}
 		} 
 		this.alerta(priority);
+		alert(priority);
 	}
 
 	this.alerta = function (nivel)

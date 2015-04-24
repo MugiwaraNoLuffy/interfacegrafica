@@ -1,11 +1,12 @@
-var a;
+var bar;
+var topology;
 
 function getData(data){
-	setAlerta(data.alerts);
-	
+	bar.setAlerts(data.alerts);
+	topology.setAlerts(data.alerts);
 }
-
-function setAlerta(alerts)
+/*
+function setBarAlert(alerts)
 {
 	var priority = 1;
 	for(var i=0; i<alerts.length; i++)
@@ -15,14 +16,16 @@ function setAlerta(alerts)
 		{
 			priority = parseInt(object.priority);
 		}
-	} 
-	a.alerta(priority);
+	}
+	barra.alerta(priority);
 }
-
+*/
 
 $(function(){
-	a = new BarraAlertas();
-	var url ="http://192.168.205.132/scriptsDB/getAlert.php";
+	bar = new AlertsBar();
+	topology = new Topology();
+	topology.init();
+	var url ="http://192.168.0.102/scriptsDB/getAlert.php";
 	$.getJSON(url, getData);
 	
 });
