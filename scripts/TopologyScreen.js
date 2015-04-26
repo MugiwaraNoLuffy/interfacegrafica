@@ -2,7 +2,8 @@ function Topology(){
 	var myDiagram;
 	var model;
 	var $;
-	var nodeArray;
+	var nodeDataArray;
+	var nodeData;
 	this.init = function(){
 		var $ = go.GraphObject.make;
 		//---------------- Diagram interation ------------
@@ -18,8 +19,9 @@ function Topology(){
 		$(go.Node, "Vertical",
 			{ 
 				locationSpot: go.Spot.Center, locationObjectName: "SHAPE",
-				layerName: "Background",
-				mouseOver: function (e, obj) { this.showPoint(obj.part.location); }
+				layerName: "Background"
+				//mouseOver: function (e, obj) { this.showPoint(obj.part.location); },
+				//doubleClick: function(e, obj){ teste(e, obj);} 
 			},
 			new go.Binding("location", "loc", go.Point.parse), 
 	      		{
@@ -35,13 +37,13 @@ function Topology(){
 	   		$(go.Panel, "Spot", 
 				$(go.Panel, "Auto", 
 					$(go.Picture,
-	      					{ margin: 10, width: 70, height: 60, background: "#FFFFFF" },
+	      					{ margin: 3, width: 70, height: 60, background: "#FFFFFF" },
 			      			new go.Binding("source")
 					)
 				)
 			),
 	    		$(go.TextBlock, "Default Text", 
-	      			{ margin: 5, stroke: "black", font: "bold 16px sans-serif" },
+	      			{ margin:3, stroke: "black", font: "bold 16px sans-serif" },
 	      			new go.Binding("text", "key"),
 	      			new go.Binding("text", "name")
 	    		),  
@@ -64,20 +66,20 @@ function Topology(){
 		); // the link shape
 	//-------------------------------------------------
 	model = $(go.Model);
-	nodeDataArray =
-		[ { key: "10105", name: "Server Jira", source: "images/pc.png", loc: "114 495", color: "green"},
-		  { key: "10108", name: "PC", source: "images/pc.png", loc: "363 517", color: "green"},
-		  { key: "10109", name: "Server Web", source: "images/pc.png", loc: "622 469", color: "green"},
-		  { key: "10107", name: "Router", source: "images/router.png", loc: "366 290", color: "green" },
-		  { key: "5", name: "Internet",  source: "images/cloud.png", loc: "373 63", color: "green"},
+	this.nodeDataArray =
+		[ { key: "10105", name: "Server Jira", source: "images/pc.png", loc: "114 495", color: "green", status: "Ok"},
+		  { key: "10108", name: "PC", source: "images/pc.png", loc: "363 517", color: "green", status: "Ok"},
+		  { key: "10109", name: "Server Web", source: "images/pc.png", loc: "622 469", color: "green",status: "Ok"},
+		  { key: "10107", name: "Router", source: "images/router.png", loc: "366 290", color: "green" ,status: "Ok"},
+		  { key: "5", name: "Internet",  source: "images/cloud.png", loc: "373 63", color: "green", status: "Ok"},
 		];
 	//nodeDataArray.push({ key: "4", name: "Switch", source: "images/switch.png", loc: "300 300", color: "yellow" });
-	nodeArray = 
-		[ {key: "10105", alerts: [null] },
-  	 	  {key: "10108", alerts: [null] },
-		  {key: "10109", alerts: [null] },
-		  {key: "10107", alerts: [null] },
-		  {key: "5", alerts: [null] },
+	nodeData = 
+		[ ["10105", []],
+  	 	  ["10108", []],
+		  ["10109", []],
+		  ["10107", []],
+		  ["5", []],
 		];
 
 	var links = [{from: "10105", to: "10107" }, {from: "10108", to: "10107"}, {from: "10109", to: "10107"}, {from: "5", to: "10107"}];
@@ -88,7 +90,7 @@ function Topology(){
 	//addNode(nodeDataArray, "5", "HOST");
 	//myDiagram.model.addLinkData({ from: "Router", to: "PC" });
 	//addLink(myDiagram, "1", "5");
-	myDiagram.model = new go.GraphLinksModel(nodeDataArray, links);
+	myDiagram.model = new go.GraphLinksModel(this.nodeDataArray, links);
 	//nodeDataArray[0]['color'] = "red";
 	//myDiagram.model = new go.GraphLinksModel(nodeDataArray, links);
 
@@ -98,16 +100,55 @@ function Topology(){
 	//myDiagram.model = new go.GraphLinksModel(nodeDataArray, links);
 	myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[0]);
 
-	myDiagram.addDiagramListener("ObjectSingleClicked",
-	      function(e) {
-		var part = e.subject.part;
-		if (!(part instanceof go.Link)) alert("Clicked on " + part.data.loc);
-	      });
+	myDiagram.addDiagramListener("ObjectSingleClicked", teste);
 
 	}
+	function teste(e, obj) {
 
+		 var clicked = e.subject.part;
+		      if (clicked !== null) {
+		        var thisemp = clicked.data;
+			alert(thisemp.key);
+			thisemp.color = "yellow";
+			myDiagram.model.nodeDataArray[0].color = "red";
+			myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[0]);
+			myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[1]);
+			myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[2]);
+			myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[3]);
+		}
+/*		e.subject.part.data.color = "blue";
+		e.subject.part.data.status = "Teste";
+		alert(this.nodeDataArray[0].key);
+	//	var node = this.searchNode(this.nodeDataArray, e.subject.part.data.key);
+	//	alert(node);
+//		this.myDiagram.model.nodeDataArray[node].status = "hahahhaha";
+//		node.color = "red";
+//		updateDiagram(node);
+		//alert(obj.part);
+		/*var alertTable = '<table id="alertas">';
+		var part = e.subject.part;
+		var color=this.alertColor(alerts[i].priority);
+		alertTable=alertTable+'<tr style=" font-weight: 900 ;padding: 7px; background-color: ' +color+'; color: white; z-index: 3;"><td style=" padding: 7px;">' +alerts[i].host+'</td><td style="padding: 7px">'+alerts[i].description+"</td></tr>";
+		*/
+//		if (!(part instanceof go.Link)) alert("Clicked on " + part.data.loc);
+	      }
 	this.updateDiagram = function (item){
-		myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[0]);
+		myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[item]);
+	}
+	//---------------------------------
+	this.alertColor = function(priority){
+		switch(priority){
+			case '1':
+				return "#00FF00";
+			case '2':
+				return "#FFFF00";
+			case '3':
+				return "#FF9900";
+			case '4':
+				return "#FF8a62";
+			case '5':
+				return "#FF0033";
+		}
 	}
 	//---------------------------------
 	this.linkProblemConverter = function (msg) {
@@ -139,7 +180,7 @@ function Topology(){
 	//---------------------------------
 	this.searchNode = function (arrayNode, key)
 	{
-		for(var i = 0; i < arrayNode.lenght; i++)
+		for(var i = 0; i < arrayNode.length; i++)
 		{
 			if(arrayNode[i]['key'] == key)
 				return i;
@@ -149,22 +190,58 @@ function Topology(){
 	//---------------------------------
 	this.showPoint = function (loc) {
 	    var docloc = myDiagram.transformDocToView(loc);
-		var elt = document.getElementById("Message1");
+	/*	var elt = document.getElementById("Message1");
 	    elt.textContent = "document: " + loc.x.toFixed(2) + " " + loc.y.toFixed(2) +
-		              "  view: " + docloc.x.toFixed(2) + " " + docloc.y.toFixed(2);
+		              "  view: " + docloc.x.toFixed(2) + " " + docloc.y.toFixed(2);*/
 	  }
 	//---------------------------------
+	this.alertColor = function(priority){
+		switch(priority){
+			case '1':
+				return "green";
+			case '2':
+				return "yellow";
+			case '3':
+				return "orange";
+			case '4':
+				return "#FF8a62";
+			case '5':
+				return "red";
+		}
+	}
 
-	this.setAlerts = function (alerts){
+	//---------------------------------
+	this.setAlerts = function (alerts)
+	{
 		var index = -1;
 		for(var i=0; i<alerts.length; i++)
 		{
-			index = this.searchNode(nodeArray, alerts[i].hostid);
-			if(index != -1){
-				nodeArray[index]['alerts'][nodeArray[index]['alerts'].length] = alerts[i];
+			//alert(1);
+			index = this.searchNode(this.nodeDataArray, alerts[i].hostid);
+			//alert(index+": "+alerts[i].priority);
+			if(index != -1)
+			{
+				nodeData[index][1][nodeData[index][1].length] = alerts[i];
+				//nodeArray[index]['alerts'][nodeArray[index]['alerts'].length] = alerts[i];
+		/*		myDiagram.model.nodeDataArray[index].color = this.alertColor(alerts[i].priority);
+				this.updateDiagram(index);
+		*/		//alert(alerts[index].hostid);
 			}
-		} 
-		alert(nodeArray[0]['alerts'][0]);
+		}
+		var priority = 1;
+		for(var i=0; i<nodeData.length; i++)
+		{
+			var priority = 1;
+			nodeAlert = nodeData[i][1];
+			for(var j = 0; j < nodeAlert.length; j++){
+				if(nodeAlert[j].priority > priority){
+					priority = nodeAlert[j].priority;
+					myDiagram.model.nodeDataArray[i].color = this.alertColor(priority);
+					myDiagram.model.nodeDataArray[i].status = nodeAlert[j].description;
+				}
+			}
+			this.updateDiagram(i);
+		}
 		
 	}
 }
