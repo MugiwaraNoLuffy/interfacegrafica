@@ -13,18 +13,31 @@ content="text/html;charset=ISO-8859-1">
 <script src="scripts/TopologyScreen.js"></script>
 <!-- GoJS -->
 <script src="scripts/go-debug.js"></script>
-<!--script>
+<script>
+var visible = false;
+function barClick()
+{
+	if(visible == false ){
+		$("#barraAlertas").show();
+		visible = true;
+	}
+	else{
+		$("#barraAlertas").hide();
+		visible = false;
+	}
+}
+
 $(function(){
 	var a = new BarraAlertas();
 	a.getAlerta();
 });
 
-</script-->
+</script>
 </head>
 
 <body>
 <div>
-<table><tr><td id="cabecalho"></td></tr></table>
+<table><tr><td id="cabecalho" onclick="barClick();"></td></tr></table>
 <table>
 <tr>
 <td id="topology">
@@ -40,7 +53,7 @@ $(function(){
 </tr>
 </table>
 </div>
-<table id="barraAlertas" hidden></table>
+<div id="barraAlertas" hidden></div>
 <table id="alertasTopo" hidden></table>
 </body>
 
