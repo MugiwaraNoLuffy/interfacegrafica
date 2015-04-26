@@ -10,26 +10,25 @@ function AlertsBar()
 	
 	this.setAlerts = function (alerts)
 	{
-		var alert = '<table id="alertas">';
+		var alertTable = '<table id="alertas">';
 		var priority = 1;
 		for(var i=0; i<alerts.length; i++)
 		{
 			var object = alerts[i];
 			var color=this.alertColor(alerts[i].priority);
-			alert=alert+'<tr style=" font-weight: 900 ;padding: 7px; background-color: ' +color+'; color: white; z-index: 3;"><td style=" padding: 7px;">' +alerts[i].host+'</td><td style="padding: 7px">'+alerts[i].description+"</td></tr>";
+			alertTable=alertTable+'<tr style=" font-weight: 900 ;padding: 7px; background-color: ' +color+'; color: white; z-index: 3;"><td style=" padding: 7px;">' +alerts[i].host+'</td><td style="padding: 7px">'+alerts[i].description+"</td></tr>";
 			if( parseInt(object.priority) > priority )
 			{
 				priority = parseInt(object.priority);
 			}
 		}
-		alert = alert+"</table>";
-		document.getElementById("barraAlertas").innerHTML = alert;
+		alertTable = alertTable+"</table>";
+		document.getElementById("barraAlertas").innerHTML = alertTable;
 		$("#alertas, td").css({"border": "2px solid #aaaaaa"});
 		$("#alertas").css({"z-index": "3"});
 		
 		
 		this.alerta(priority);
-		alert(priority);
 	}
 
 	//---------------------------------

@@ -19,7 +19,7 @@
 	{
 
 		$row->description =  utf8_encode(str_replace("{HOST.NAME}", $row->host, $row->description ));
-		unset($row->host);
+		//unset($row->host);
 		$alerts[] = $row;
 	}
 
@@ -27,7 +27,7 @@
 	 * Carrega alertas nfdump
 	 */
 	
-	$sql = "SELECT description,priority,hostid FROM triggers WHERE value=1";
+	$sql = "SELECT triggers.description,triggers.priority,triggers.hostid,hosts.host FROM triggers INNER JOIN hosts ON (triggers.hostid=hosts.hostid) WHERE value=1";
 	
 	$link = mysqli_connect($host, $username, $password, $dbNfdump);
 	$result = mysqli_query($link, $sql);
