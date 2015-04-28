@@ -14,19 +14,22 @@ content="text/html;charset=ISO-8859-1">
 <!-- GoJS -->
 <script src="scripts/go-debug.js"></script>
 <script>
-var visible = false;
 function barClick()
 {
-	if(visible == false ){
-		$("#barraAlertas").show();
-		visible = true;
+	var barra = document.getElementById("barraAlertas");
+	var topo = document.getElementById("alertasTopo");
+	if(barra.style.display == "none" ){
+		barra.style.display = "table";
+		topo.style.display = "none";
 	}
 	else{
-		$("#barraAlertas").hide();
-		visible = false;
+		barra.style.display = "none";
 	}
 }
-
+$(function(){
+document.getElementById("barraAlertas").style.display = "none";
+document.getElementById("alertasTopo").style.display = "none";
+});
 </script>
 </head>
 
@@ -48,8 +51,8 @@ function barClick()
 </tr>
 </table>
 </div>
-<div id="barraAlertas" hidden></div>
-<table id="alertasTopo" hidden></table>
+<div id="barraAlertas"></div>
+<table id="alertasTopo"></table>
 </body>
 
 </html>

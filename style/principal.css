@@ -13,4 +13,5 @@
 #pizza 	  { width: 406px; height: 213px; border: 1px solid #aaaaaa;
 	    top: 65%; left: 1%; position: absolute; border-radius: 10px; z-index: 1;}
 #barraAlertas {position: absolute; top: 12%; left: 45%; z-index: 2; border: 2px solid #aaaaaa; }
+#alertasTopo {position: absolute; top: 12%; left: 45%; z-index: 2; border: 2px solid #aaaaaa; }
 

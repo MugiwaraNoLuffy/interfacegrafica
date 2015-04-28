@@ -107,14 +107,32 @@ function Topology(){
 
 		 var clicked = e.subject.part;
 		      if (clicked !== null) {
-		        var thisemp = clicked.data;
-			alert(thisemp.key);
-			thisemp.color = "yellow";
-			myDiagram.model.nodeDataArray[0].color = "red";
-			myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[0]);
-			myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[1]);
-			myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[2]);
-			myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[3]);
+		        var node = clicked.data;
+			var nodeName = node.name;
+			var alertTable = '<table id=nodeAlert style="border: 2px solid #aaaaaa; z-index: 3;">';
+			var table = document.getElementById("alertas");
+			var color;
+		        for (var r = 0, n = table.rows.length; r < n; r++) {
+				if( nodeName == table.rows[r].cells[0].innerHTML )
+				{					
+					var color = table.rows[r].style.backgroundColor;
+					alertTable=alertTable+'<tr style=" font-weight: 900 ;padding: 7px; background-color: ' +color+'; color: white; z-index: 3;"><td style=" padding: 7px;">' +table.rows[r].cells[0].innerHTML+'</td><td style="padding: 7px">'+table.rows[r].cells[1].innerHTML+"</td></tr>";
+				}
+
+		        }
+			alertTable = alertTable+"</table>";
+			var topo = document.getElementById("alertasTopo");
+			topo.innerHTML = alertTable;
+			if(topo.style.display == "none") topo.style.display = "table";
+			else topo.style.display = "none";
+			document.getElementById("barraAlertas").style.display = "none";
+//			$("#alertas, td").css({"border": "2px solid #aaaaaa"});
+//			$("#alertas").css({"z-index": "3"});
+
+//			alert(text.outerHTML);
+			/*var alertTable = "<table id=alertas>";
+			var color=this.alertColor(alerts[i].priority);
+			alertTable=alertTable+'<tr style=" font-weight: 900 ;padding: 7px; background-color: ' +color+'; color: white; z-index: 3;"><td style=" padding: 7px;">' +nodeData[i][1].host+'</td><td style="padding: 7px">'+nodeData[i][1].description+"</td></tr>";*/
 		}
 /*		e.subject.part.data.color = "blue";
 		e.subject.part.data.status = "Teste";
