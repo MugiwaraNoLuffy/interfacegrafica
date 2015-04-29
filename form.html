@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> 
+
+
+<script>
+
+</script>
+</head>
+
+<body>
+<div>Cabeçalho</div>
+<div>
+	<form id="formulario" action="http://192.168.0.102/setNfdumpTriggers.php" method="POST"><fieldset>
+		<legend>Inserir trigger</legend>
+		Descricao:<br>
+		<input name="description" autofocus>
+		<br>
+		Host:<br>
+		<input name="hostid" type="number">
+		<br>
+		Protocol:<br>
+		<input name="protocol" type="number">
+		<br>
+		Direcao dos dados:<br>
+		<input type="radio" name="direction" id="output" checked>Saida
+		<br>
+		<input type="radio" name="direction" id="input">Entrada
+		<br>
+		<input type="radio" name="direction" id="both">Ambos
+		<br>
+		Limiar<br>	
+		<input name="threshold" type="number">
+		<br>
+		Comparacao:<br>
+		<input name="comparative" type="text">
+		<br>
+		Prioridade:<br>
+		<input name="priority" type="number">
+		<br>
+		<input name="submit" type="submit" value="Enviar">
+	</fieldset></form>
+
+</div>
+</body>
+
+</html>
