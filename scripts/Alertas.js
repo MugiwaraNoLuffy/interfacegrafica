@@ -1,5 +1,6 @@
 var bar;
 var topology;
+var url;
 
 function getData(data){
 	bar.setAlerts(data.alerts);
@@ -21,13 +22,20 @@ function setBarAlert(alerts)
 }
 */
 
+
+
 $(function(){
 	bar = new AlertsBar();
-	topology = new Topology();
-	topology.init();
-	var url ="http://192.168.0.102/scriptsDB/getAlert.php";
+        topology = new Topology();
+        topology.init();
+        url ="http://192.168.0.102/scriptsDB/getAlert.php";
+	var t = setTimeout(function(){getAlerts()},30000);
+	getAlerts();
+});
+
+function getAlerts(){
 	$.getJSON(url, getData);
 	
-});
+}
 
 

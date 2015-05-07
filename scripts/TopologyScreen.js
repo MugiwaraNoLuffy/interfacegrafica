@@ -8,12 +8,13 @@ function Topology(){
 		var $ = go.GraphObject.make;
 		//---------------- Diagram interation ------------
 		myDiagram =
-		$(go.Diagram, "topoField",
-		{
-		initialContentAlignment: go.Spot.Center, // Center Diagram contents
-		"undoManager.isEnabled": true // enable Ctrl-Z to undo and Ctrl-Y to redo
-		}
-		);
+			$(go.Diagram, "topoField",
+			{
+			initialContentAlignment: go.Spot.Center, // Center Diagram contents
+			"undoManager.isEnabled": true // enable Ctrl-Z to undo and Ctrl-Y to redo
+			}
+			);
+		
 		//---------------- Nodes configuration ------------
 		myDiagram.nodeTemplate =
 		$(go.Node, "Vertical",
@@ -103,6 +104,7 @@ function Topology(){
 	myDiagram.addDiagramListener("ObjectSingleClicked", teste);
 
 	}
+	
 	function teste(e, obj) {
 
 		 var clicked = e.subject.part;
@@ -118,7 +120,6 @@ function Topology(){
 					var color = table.rows[r].style.backgroundColor;
 					alertTable=alertTable+'<tr style=" font-weight: 900 ;padding: 7px; background-color: ' +color+'; color: white; z-index: 3;"><td style=" padding: 7px;">' +table.rows[r].cells[0].innerHTML+'</td><td style="padding: 7px">'+table.rows[r].cells[1].innerHTML+"</td></tr>";
 				}
-
 		        }
 			alertTable = alertTable+"</table>";
 			var topo = document.getElementById("alertasTopo");
@@ -126,30 +127,8 @@ function Topology(){
 			if(topo.style.display == "none") topo.style.display = "table";
 			else topo.style.display = "none";
 			document.getElementById("barraAlertas").style.display = "none";
-//			$("#alertas, td").css({"border": "2px solid #aaaaaa"});
-//			$("#alertas").css({"z-index": "3"});
-
-//			alert(text.outerHTML);
-			/*var alertTable = "<table id=alertas>";
-			var color=this.alertColor(alerts[i].priority);
-			alertTable=alertTable+'<tr style=" font-weight: 900 ;padding: 7px; background-color: ' +color+'; color: white; z-index: 3;"><td style=" padding: 7px;">' +nodeData[i][1].host+'</td><td style="padding: 7px">'+nodeData[i][1].description+"</td></tr>";*/
-		}
-/*		e.subject.part.data.color = "blue";
-		e.subject.part.data.status = "Teste";
-		alert(this.nodeDataArray[0].key);
-	//	var node = this.searchNode(this.nodeDataArray, e.subject.part.data.key);
-	//	alert(node);
-//		this.myDiagram.model.nodeDataArray[node].status = "hahahhaha";
-//		node.color = "red";
-//		updateDiagram(node);
-		//alert(obj.part);
-		/*var alertTable = '<table id="alertas">';
-		var part = e.subject.part;
-		var color=this.alertColor(alerts[i].priority);
-		alertTable=alertTable+'<tr style=" font-weight: 900 ;padding: 7px; background-color: ' +color+'; color: white; z-index: 3;"><td style=" padding: 7px;">' +alerts[i].host+'</td><td style="padding: 7px">'+alerts[i].description+"</td></tr>";
-		*/
-//		if (!(part instanceof go.Link)) alert("Clicked on " + part.data.loc);
-	      }
+	      	}
+	}
 	this.updateDiagram = function (item){
 		myDiagram.model.updateTargetBindings(myDiagram.model.nodeDataArray[item]);
 	}
@@ -170,18 +149,17 @@ function Topology(){
 	}
 	//---------------------------------
 	this.linkProblemConverter = function (msg) {
-		if (msg) return "red";
 		return "black";
 	}
 	//---------------------------------
 	this.nodeProblemConverter = function (msg) {
-		if (msg) return msg;
 		return null;
 	}
 	//---------------------------------
 	this.nodeProblem = function (color){
-		return color;
+		return "green";
 	}
+
 	//---------------------------------
 	this.addNode = function (arrayNode, key, name){
 		var insert = searchNode(arrayNode, key);
@@ -234,24 +212,26 @@ function Topology(){
 		var index = -1;
 		for(var i=0; i<alerts.length; i++)
 		{
-			//alert(1);
+			nodeData[i][1] = [];
+		}
+		for(var i=0; i<alerts.length; i++)
+		{
+
 			index = this.searchNode(this.nodeDataArray, alerts[i].hostid);
-			//alert(index+": "+alerts[i].priority);
+
 			if(index != -1)
-			{
 				nodeData[index][1][nodeData[index][1].length] = alerts[i];
-				//nodeArray[index]['alerts'][nodeArray[index]['alerts'].length] = alerts[i];
-		/*		myDiagram.model.nodeDataArray[index].color = this.alertColor(alerts[i].priority);
-				this.updateDiagram(index);
-		*/		//alert(alerts[index].hostid);
-			}
+
 		}
 		var priority = 1;
 		for(var i=0; i<nodeData.length; i++)
 		{
 			var priority = 1;
 			nodeAlert = nodeData[i][1];
-			for(var j = 0; j < nodeAlert.length; j++){
+			myDiagram.model.nodeDataArray[i].color = this.alertColor(priority);
+			myDiagram.model.nodeDataArray[i].status = 'Ok';
+			for(var j = 0; j < nodeAlert.length; j++)
+			{
 				if(nodeAlert[j].priority > priority){
 					priority = nodeAlert[j].priority;
 					myDiagram.model.nodeDataArray[i].color = this.alertColor(priority);
