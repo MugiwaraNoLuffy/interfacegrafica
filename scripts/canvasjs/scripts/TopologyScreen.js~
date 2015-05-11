@@ -212,14 +212,10 @@ function Topology(){
 	this.setAlerts = function (alerts)
 	{
 		var index = -1;
-		nodeData = 
-		[ ["10105", []],
-  	 	  ["10108", []],
-		  ["10109", []],
-		  ["10107", []],
-		  ["5", []],
-		];
-
+		for(var i=0; i<alerts.length; i++)
+		{
+			nodeData[i][1] = [];
+		}
 		for(var i=0; i<alerts.length; i++)
 		{
 

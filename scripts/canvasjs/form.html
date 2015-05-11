@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> 
+<link rel="stylesheet" type="text/css" href="style/form.css">
+
+<script>
+
+</script>
+</head>
+
+<body background="dark">
+
+<div>
+	<form id="formulario" action="http://192.168.0.102/scriptsDB/setNfdumpTriggers.php" method="POST"><fieldset>
+		<legend><h3>Inserir trigger</h3></legend>
+		<div class="field"><label>Descricao:</label>
+			<input name="description" autofocus>
+			<p class="hint">Digite a descricao do trigger</p>
+		</div><br>
+		<div class="field"><label>Host:</label>
+			<input name="hostid" type="number">
+			<p class="hint">Digite o hostid.</p>
+		</div><br>
+
+		<div class="field"><label>Protocol:</label>
+			<input name="protocol" type="number"> - <input name="toprotocol" type="number">
+			<p class="hint">Digite o numero da porta</p>
+		</div><br>
+		<div class="field"><label>Direcao dos dados:</label>
+			<input type="radio" name="direction" id="output" checked>Saida
+			<input type="radio" name="direction" id="input">Entrada
+			<input type="radio" name="direction" id="both">Ambos
+		</div><br>
+		<br><div class="field"><label>Limiar:</label>
+			<input name="threshold" type="number">
+			<p class="hint">Entre com o Limiar para o trigger (Bytes)</p>
+		</div><br>
+		<div class="field"><label>Comparacao:</label>
+			<input name="comparative" type="text">
+			<p class="hint">Entre a comparação (>, <, =, >=, <=).</p>
+		</div><br>
+		<div class="field"><label>Prioridade:</label>
+			<input name="priority" type="number">
+			<p class="hint">Entre com a prioridade (1 a 5).</p>
+		</div><br>
+		<input class="button" name="submit" type="submit" value="Enviar">
+	</fieldset></form>
+
+</div>
+</body>
+
+</html>

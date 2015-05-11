@@ -8,9 +8,9 @@
 	    top:10%; left: 64%; position: absolute; border-radius: 10px; z-index: 1;}
 #flows 	  { width: 480px; height: 213px; border: 1px solid #aaaaaa;
 	    top: 1%; left: 1%; position: absolute; border-radius: 10px; z-index: 1;}
-#trafego  { width: 480px; height: 260px; border: 1px solid #aaaaaa;
+#trafego  { width: 480px; height: 240px; border: 1px solid #aaaaaa;
 	    top: 32%; left: 1%; position: absolute; border-radius: 10px; z-index: 1;}
-#imagem  { width: 478px; height: 258px;
+#imagem  { width: 480px; height: 238px;
 	    top: 0%; left: 0%; position: absolute; border-radius: 10px; z-index: 1;}
 #pizza 	  { width: 480px; height: 213px; border: 1px solid #aaaaaa;
 	    top: 69%; left: 1%; position: absolute; border-radius: 10px; z-index: 1;}

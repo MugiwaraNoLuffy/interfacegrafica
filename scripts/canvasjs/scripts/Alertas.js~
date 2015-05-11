@@ -48,6 +48,6 @@ function getFlows(){
 
 function getTopFlows(data){
 	flows.setFlows(data.flows);
-	//document.getElementById("flows").innerHTML = data.flows[0];
+	document.getElementById("flows").innerHTML = data.flows[0];
 }
 

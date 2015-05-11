@@ -1,0 +1,29 @@
+var bar;
+var topology;
+var urlAlerts;
+var urlFlows;
+
+function getData(data){
+	bar.setAlerts(data.alerts);
+	topology.setAlerts(data.alerts);
+}
+
+$(function(){
+	traffic = new TrafficGraph();
+        //pie = new PieGraph();
+        topology.init();
+        urlAlerts = "http://192.168.0.102/scriptsDB/getAlert.php";
+	urlFlows = "http://192.168.0.102/scriptsDB/getFlows.php";
+	//var t = setTimeout(function(){getAlerts()},30000);
+	getFlows();
+	getAlerts();
+});
+
+function getAlerts(){
+	$.getJSON(urlAlerts, getData);
+	
+}
+
+function getFlows(){
+	$.getJSON(urlFlows, getTopFlows);
+}
