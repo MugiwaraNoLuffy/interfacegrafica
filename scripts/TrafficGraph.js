@@ -1,7 +1,7 @@
-var TrafficGraph(){
+function TrafficGraph(){
 	var hostid;
-	var entrada = new Array();
-	var saida = new Array();
+	var entrada = [];
+	var saida = [];
 	var units = "bps";
 
 	this.init = function(host){
@@ -9,16 +9,24 @@ var TrafficGraph(){
 	}
 
 	this.populateGraph = function(data){
-		
+		entrada = [];
+		saida = [];
+		var time;
+		for(var i=0; i < data.entrada.length; i++){
+			time = new Date(Number(data.entrada[i].clock)*1000);
+			entrada[entrada.length] = {x: time,  y: Number(data.entrada[i].value) };
+			time = new Date(Number(data.saida[i].clock)*1000);
+			saida[saida.length] = {x: time,  y: Number(data.saida[i].value) };
+		}
 	}
 	
 	this.createGraph = function () {
-    		var chart = new CanvasJS.Chart("trafego",
+   		var chart = new CanvasJS.Chart("trafego",
 		{
 		        title: { text: "Trafego" },
 			animationEnabled: true,
-			axisX:{ interval: 10, valueFormatString: "HHmm"	},
-			axisY: { title: units, interval: 10 },
+			axisX:{ interval: 100, valueFormatString: "HH:mm"	},
+			axisY: { title: units, interval: 1000 },
 			legend:{ verticalAlign: "bottom", horizontalAlign: "center" },
 
 			data: [{
@@ -26,29 +34,19 @@ var TrafficGraph(){
 				showInLegend: true,
 				legendMarkerType: "square",
 				type: "area",
-				color: "rgba(40,175,101,0.6)",
+				color: "#FF0033",
 				markerSize: 0,
 				dataPoints: entrada
-				/*[
-					{x:new Date(2013,0,1,00,00) ,label: "midnight", y: 7  },
-					{x:new Date(2013,0,1,00,01) , y: 8},
-					{x:new Date(2013,0,1,00,02) , y: 5}
-				]*/
 				},
 				{
 				name: "Saida",
 				showInLegend: true,
 				legendMarkerType: "square",
 				type: "area",
-				color: "rgba(0,75,141,0.7)",
+				color: "#00BFFF",
 				markerSize: 0,
 				label: units,
-				dataPoints: saida[
-/*
-					{x:new Date(2013,0,1,00,00) , label: "midnight", y: 12  },
-					{x:new Date(2013,0,1,00,01) , y: 10}.
-					{x:new Date(2013,0,1,00,02) , y: 10}
-				]*/
+				dataPoints: saida
 				}
 			]
 		});

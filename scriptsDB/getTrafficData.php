@@ -37,7 +37,7 @@
 	 * Json encode
 	 */	
 
-	$json1 = '{"entrada":'.json_encode($trafego_entrada).'}';//', "saida":'.json_encode($trafego_saida).'}';
+	$json1 = '{"entrada":'.json_encode($trafego_entrada).', "saida":'.json_encode($trafego_saida).', "max":10}';
 
 	echo "$json1";
 
